@@ -72,6 +72,9 @@ cats<-dplyr::select_if(datos,is.factor)     #CATEGORICAS
 
 View(datos$GarageYrBlt)
 
-cor(nums)
+install.packages("corrplot")
+library(corrplot)
+nums.cor <- cor(nums)
+corrplot(nums.cor)
 
-
+# 4. Utilice las variables categóricas, haga tablas de frecuencia, proporción, gráficas de barras o cualquier otra técnica que le permita explorar los datos
