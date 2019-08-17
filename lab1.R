@@ -8,6 +8,7 @@ install.packages("psych")
 install.packages("FactoMineR")
 install.packages("ggfortify")
 install.packages("corrplot")
+install.packages("arules")
 # Librerias
 library(corrplot)
 library(ggfortify)
@@ -15,6 +16,7 @@ library(rela)
 library(psych)
 library(FactoMineR)
 library(fpc)
+library(arules)
 # Datos
 datos <- read.csv("train.csv")
 View(datos)
@@ -97,6 +99,5 @@ summary(compPrincPCA)
 
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
-
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
