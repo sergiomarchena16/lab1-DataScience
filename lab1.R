@@ -14,6 +14,7 @@ library(ggfortify)
 library(rela)
 library(psych)
 library(FactoMineR)
+library(fpc)
 # Datos
 datos <- read.csv("train.csv")
 View(datos)
@@ -90,9 +91,12 @@ compPrinc
 summary(compPrinc)
 autoplot(compPrinc)
 compPrincPCA<-PCA(nums,ncp=ncol(nums), scale.unit = T)
+summary(compPrincPCA)
 
 # 6. Haga un análisis de clustering, describa los grupos.
 
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
+
+
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
