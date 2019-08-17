@@ -3,12 +3,20 @@
 # SERGIO MARCHENA 16387
 
 # Paquetes
-
+install.packages("rela")
+install.packages("psych")
+install.packages("FactoMineR")
+install.packages("ggfortify")
+install.packages("corrplot")
 # Librerias
-
+library(corrplot)
+library(ggfortify)
+library(rela)
+library(psych)
+library(FactoMineR)
 # Datos
 datos <- read.csv("train.csv")
-
+View(datos)
 # 1. Haga una exploración rápida de sus datos para eso haga un resumen de su dataset
 View(datos)
 summary(datos)
@@ -69,12 +77,22 @@ summary(datos$ExterQual)
 
 nums<-dplyr::select_if(datos, is.numeric)   #NUMERICAS
 cats<-dplyr::select_if(datos,is.factor)     #CATEGORICAS
-
-View(datos$GarageYrBlt)
-
-install.packages("corrplot")
-library(corrplot)
+View(nums)
 nums.cor <- cor(nums)
 corrplot(nums.cor)
 
-# 4. Utilice las variables categóricas, haga tablas de frecuencia, proporción, gráficas de barras o cualquier otra técnica que le permita explorar los datos
+# 4. Utilice las variables categóricas, haga tablas de frecuencia, proporción, gráficas de barras o cualquier otra técnica que le permita explorar los datos.
+# 5. Haga un análisis de componentes principales, interprete los componentes
+
+nums[is.na(nums)] <- 0
+compPrinc<-prcomp(nums, scale = T)
+compPrinc
+summary(compPrinc)
+autoplot(compPrinc)
+compPrincPCA<-PCA(nums,ncp=ncol(nums), scale.unit = T)
+
+# 6. Haga un análisis de clustering, describa los grupos.
+
+
+# 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
+# 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
