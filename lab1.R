@@ -9,6 +9,7 @@ install.packages("FactoMineR")
 install.packages("ggfortify")
 install.packages("corrplot")
 install.packages("arules")
+
 # Librerias
 library(corrplot)
 library(ggfortify)
@@ -17,6 +18,9 @@ library(psych)
 library(FactoMineR)
 library(fpc)
 library(arules)
+library(ggplot2)
+library(caret)
+library("ggpubr")
 # Datos
 datos <- read.csv("train.csv")
 View(datos)
