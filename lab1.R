@@ -21,9 +21,16 @@ library(arules)
 library(ggplot2)
 library(caret)
 library("ggpubr")
+library(cluster) #Para calcular la silueta
+library(e1071)#para cmeans
+library(mclust) #mixtures of gaussians
+library(fpc) #para hacer el plotcluster
+library(NbClust) #Para determinar el n?mero de clusters ?ptimo
+library(factoextra) #Para hacer gr?ficos bonitos de clustering
+
 # Datos
 datos <- read.csv("train.csv")
-
+datos <- as.data.frame(datos)
 # 1. Haga una exploración rápida de sus datos para eso haga un resumen de su dataset
 View(datos)
 summary(datos)
@@ -71,6 +78,33 @@ compPrincPCA<-PCA(nums,ncp=ncol(nums), scale.unit = T)
 summary(compPrincPCA)
 
 # 6. Haga un análisis de clustering, describa los grupos.
+
+#Utilizamos la función complete.cases ya que existen demasiados valores NA en nums
+nums_completo <- nums[complete.cases(nums),]
+
+#Utilización de nbClust para encontrar número óptimo de clusters
+nb <- NbClust(nums_completo, distance = "euclidean", min.nc = 2,
+              max.nc = 10, method = "complete", index ="all")
+
+#K-medias
+km<-kmeans(nums_completo,10)
+nums_completo$grupo<-km$cluster
+plotcluster(nums_completo,km$cluster) #grafica la ubicación de los clusters
+fviz_cluster(km, data = nums_completo,geom = "point", ellipse.type = "norm")
+
+#Fuzzy C-Means
+fcm<-cmeans(nums_completo,10)
+nums_completo$FCGrupos<-fcm$cluster
+nums_completo<-cbind(nums_completo,fcm$membership)
+
+#Metodos de la silueta
+#Método de la silueta para las k-medias
+silkm<-silhouette(km$cluster,dist(nums_completo))
+mean(silkm[,3]) #0.48 
+
+#Método de la silueta para fuzzy cmeans
+silfcm<-silhouette(fcm$cluster,dist(nums_completo))
+mean(silfcm[,3]) #0.477
 
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
