@@ -30,7 +30,7 @@ library(cluster) #Para calcular la silueta
 library(e1071)#para cmeans
 library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
-library(NbClust) #Para determinar el n?mero de clusters ?ptimo
+library(NbClust) #Para determinar el n?mero de clusters optimo
 library(factoextra) #Para hacer gr?ficos bonitos de clustering
 
 # Datos
@@ -74,13 +74,31 @@ barplot(table(cats$Utilities), main="Utilidades de la casa", beside=TRUE, col="g
 barplot(table(cats$LotConfig), main="Configuración del lote", beside=TRUE, col="green", border = TRUE)
 
 # 5. Haga un análisis de componentes principales, interprete los componentes
-nums[is.na(nums)] <- 0
-compPrinc
-summary(compPrinc)
-autoplot(compPrinc)
-compPrincPCA<-PCA(nums,ncp=ncol(nums), scale.unit = T)
-summary(compPrincPCA)
+#Utilizamos la función complete.cases ya que existen demasiados valores NA en nums
+nums_completo <- nums[complete.cases(nums),]
 
+#TEST ESFERICIDAD DE BARLETT
+nums.NoNa <- na.omit(nums) 
+cortest.bartlett(nums.NoNa)
+#$chisq
+#[1] 98752
+
+#$p.value
+#[1] 0
+
+#$df
+#[1] 703
+
+KMO(nums.NoNa)
+bartlett.test(nums.NoNa)
+#Bartlett's K-squared = 531000, df = 37, p-value <2e-16
+#PCA
+values<- nums.NoNa[,c(7,8,13,14,17,27)]
+compPrin <- prcomp(values, scale=T)
+compPrin
+autoplot(compPrin, data = nums_completo,loadings = TRUE, loadings.colour = 'green',loadings.label = TRUE, loadings.label.size = 3)
+
+#ESTAS COMPONENTES EXPLICAN APROXIMADAMENTE EL 73% DE LA VARIABILIDAD DE LOS DATOS
 
 # 6. Haga un análisis de clustering, describa los grupos.
 
