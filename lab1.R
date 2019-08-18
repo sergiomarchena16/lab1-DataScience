@@ -95,8 +95,13 @@ bartlett.test(nums.NoNa)
 #Bartlett's K-squared = 531000, df = 37, p-value <2e-16
 #PCA
 values<- nums.NoNa[,c(7,8,13,14,17,27)]
+View(values)
+#values2<- datos[,c(5,7,8,13,14,17,20,24,27,28)]
+#values2<-datos %>% select(19,20,21,39,44, 47, 50, 55, 62,63)
+#View(values2)
 compPrin <- prcomp(values, scale=T)
 compPrin
+autoplot(compPrin)
 autoplot(compPrin, data = nums_completo,loadings = TRUE, loadings.colour = 'green',loadings.label = TRUE, loadings.label.size = 3)
 
 #ESTAS COMPONENTES EXPLICAN APROXIMADAMENTE EL 73% DE LA VARIABILIDAD DE LOS DATOS
@@ -131,12 +136,18 @@ silfcm<-silhouette(fcm$cluster,dist(nums_completo))
 mean(silfcm[,3]) #0.477
 
 
+<<<<<<< HEAD
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
 reglas<-apriori(cats, parameter = list(support = 0.10,
                                         confidence = 0.80,
                                         maxlen = 10,
                                         target = "rules"))
+=======
+# 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte
+>>>>>>> 3c14a3fa361688aae636bf42df0acec9bc84bf17
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
+
+cor(nums_completo, nums_completo$SalePrice)
 
 # Ver PDF
