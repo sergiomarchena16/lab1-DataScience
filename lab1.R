@@ -9,6 +9,7 @@ install.packages("FactoMineR")
 install.packages("ggfortify")
 install.packages("corrplot")
 install.packages("arules")
+install.packages("Hmisc")
 
 # Librerias
 library(corrplot)
@@ -21,6 +22,10 @@ library(arules)
 library(ggplot2)
 library(caret)
 library("ggpubr")
+library(cluster)
+library(dplyr)
+library(plyr)
+library(Hmisc)
 # Datos
 datos <- read.csv("train.csv")
 View(datos)
@@ -92,16 +97,17 @@ corrplot(nums.cor)
 # 5. Haga un análisis de componentes principales, interprete los componentes
 
 nums[is.na(nums)] <- 0
-compPrinc<-prcomp(nums, scale = T)
 compPrinc
 summary(compPrinc)
 autoplot(compPrinc)
 compPrincPCA<-PCA(nums,ncp=ncol(nums), scale.unit = T)
 summary(compPrincPCA)
 
+
 # 6. Haga un análisis de clustering, describa los grupos.
 
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
+
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
