@@ -32,6 +32,7 @@ library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
 library(NbClust) #Para determinar el n?mero de clusters optimo
 library(factoextra) #Para hacer gr?ficos bonitos de clustering
+library(arules)
 
 # Datos
 datos <- read.csv("train.csv")
@@ -131,7 +132,10 @@ mean(silfcm[,3]) #0.477
 
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
-
+reglas<-apriori(cats, parameter = list(support = 0.10,
+                                        confidence = 0.80,
+                                        maxlen = 10,
+                                        target = "rules"))
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
 
