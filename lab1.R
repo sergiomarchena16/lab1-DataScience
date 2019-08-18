@@ -31,7 +31,6 @@ str(datos)
 
 # 2. Diga el tipo de cada una de las variables del dataset (cualitativa o categórica, cuantitativa continua, cuantitativa discreta)
 # VER PDF
-
 for(i in datos){
   str(i)
   summary(i)
@@ -61,8 +60,8 @@ barplot(table(cats$Alley), main="Tipo de callejón para accesar la propiedad",be
 barplot(table(cats$LotShape), main="Forma general de la propiedad",beside=TRUE, col="yellow", border = TRUE)
 barplot(table(cats$Utilities), main="Utilidades de la casa", beside=TRUE, col="green", border = TRUE)
 barplot(table(cats$LotConfig), main="Configuración del lote", beside=TRUE, col="green", border = TRUE)
-# 5. Haga un análisis de componentes principales, interprete los componentes
 
+# 5. Haga un análisis de componentes principales, interprete los componentes
 nums[is.na(nums)] <- 0
 compPrinc<-prcomp(nums, scale = T)
 compPrinc
