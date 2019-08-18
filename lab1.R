@@ -134,3 +134,5 @@ mean(silfcm[,3]) #0.477
 
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
+
+# Ver PDF
