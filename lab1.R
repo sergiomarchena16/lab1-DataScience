@@ -17,7 +17,7 @@ library(FactoMineR)
 library(fpc)
 # Datos
 datos <- read.csv("train.csv")
-View(datos)
+
 # 1. Haga una exploración rápida de sus datos para eso haga un resumen de su dataset
 View(datos)
 summary(datos)
@@ -25,57 +25,13 @@ str(datos)
 
 # 2. Diga el tipo de cada una de las variables del dataset (cualitativa o categórica, cuantitativa continua, cuantitativa discreta)
 # VER PDF
-str(datos$Id)
-str(datos$MSSubClass)
-str(datos$MSZoning)
-str(datos$LotFrontage)
-str(datos$LotArea)
-str(datos$Street) 
-summary(datos$Street) 
-str(datos$Alley)
-summary(datos$Alley)
-str(datos$LotShape)
-summary(datos$LotShape)
-str(datos$LandContour)
-summary(datos$LandContour)
-str(datos$Utilities)
-summary(datos$Utilities)
-str(datos$LotConfig)
-summary(datos$LotConfig)
-str(datos$LandSlope)
-summary(datos$LandSlope)
-str(datos$Neighborhood)
-summary(datos$Neighborhood)
-str(datos$Condition1)
-summary(datos$Condition1)
-str(datos$Condition2)
-summary(datos$Condition2)
-str(datos$BldgType)
-summary(datos$BldgType)
-str(datos$HouseStyle)
-summary(datos$HouseStyle)
-str(datos$OverallQual)
-str(datos$OverallCond)
-str(datos$YearBuilt)
-str(datos$YearRemodAdd)
-str(datos$RoofStyle)
-summary(datos$RoofStyle)
-str(datos$RoofMatl)
-summary(datos$RoofMatl)
-str(datos$Exterior1st)
-summary(datos$Exterior1st)
-str(datos$Exterior2nd)
-summary(datos$Exterior2nd)
-str(datos$MasVnrType)
-summary(datos$MasVnrType)
-str(datos$MasVnrArea)
-str(datos$ExterQual)
-summary(datos$ExterQual)
 
-
+for(i in datos){
+  str(i)
+  summary(i)
+}
 
 # 3. Aísle las variables numéricas de las categóricas, haga un análisis de correlación entre las mismas.
-
 nums<-dplyr::select_if(datos, is.numeric)   #NUMERICAS
 cats<-dplyr::select_if(datos,is.factor)     #CATEGORICAS
 View(nums)
@@ -83,6 +39,22 @@ nums.cor <- cor(nums)
 corrplot(nums.cor)
 
 # 4. Utilice las variables categóricas, haga tablas de frecuencia, proporción, gráficas de barras o cualquier otra técnica que le permita explorar los datos.
+
+#Todas las tablas de frecuencia de las variables categoricas
+nombres <- colnames(cats)
+cont <- 1
+for(i in cats){
+  print(nombres[cont])
+  print(table(i))
+  cont <- cont + 1
+}
+
+barplot(table(cats$MSZoning), main="Clasificación de la zona general", beside=TRUE, col="blue", border = TRUE)
+barplot(table(cats$Street), main="Tipo de calle de acceso", beside=TRUE, col="blue", border = TRUE)
+barplot(table(cats$Alley), main="Tipo de callejón para accesar la propiedad",beside=TRUE, col="yellow", border = TRUE)
+barplot(table(cats$LotShape), main="Forma general de la propiedad",beside=TRUE, col="yellow", border = TRUE)
+barplot(table(cats$Utilities), main="Utilidades de la casa", beside=TRUE, col="green", border = TRUE)
+barplot(table(cats$LotConfig), main="Configuración del lote", beside=TRUE, col="green", border = TRUE)
 # 5. Haga un análisis de componentes principales, interprete los componentes
 
 nums[is.na(nums)] <- 0
