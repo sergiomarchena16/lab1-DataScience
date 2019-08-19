@@ -10,6 +10,8 @@ install.packages("ggfortify")
 install.packages("corrplot")
 install.packages("arules")
 install.packages("Hmisc")
+install.packages("factoextra")
+
 
 # Librerias
 library(corrplot)
@@ -135,16 +137,12 @@ mean(silkm[,3]) #0.48
 silfcm<-silhouette(fcm$cluster,dist(nums_completo))
 mean(silfcm[,3]) #0.477
 
-
-<<<<<<< HEAD
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
 reglas<-apriori(cats, parameter = list(support = 0.10,
                                         confidence = 0.80,
                                         maxlen = 10,
                                         target = "rules"))
-=======
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte
->>>>>>> 3c14a3fa361688aae636bf42df0acec9bc84bf17
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
 
