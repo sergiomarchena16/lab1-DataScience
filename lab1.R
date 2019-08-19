@@ -138,11 +138,24 @@ silfcm<-silhouette(fcm$cluster,dist(nums_completo))
 mean(silfcm[,3]) #0.477
 
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte.
-reglas<-apriori(cats, parameter = list(support = 0.10,
-                                        confidence = 0.80,
-                                        maxlen = 10,
+reglas<-apriori(cats, parameter = list(support = 0.90,
+                                        confidence = 0.90,
+                                        maxlen = 5,
+                                        maxtime = 3,
+                                        minlen = 2,
                                         target = "rules"))
+
 # 7. Obtenga reglas de asociación más interesantes del dataset. Discuta sobre el nivel de confianza y soporte
+
+
+#--- codigo extraído de documentación ?is.redundant
+## for better comparison we sort the rules by confidence and add Bayado's improvement
+reglas <- sort(reglas, by = "confidence")
+quality(reglas)$improvement <- interestMeasure(reglas, measure = "improvement")
+inspect(reglas)
+
+## non-redundant rules
+inspect(reglas[!is.redundant(reglas)])
 
 # 8. Haga un resumen de los hallazgos más importantes encontrados al explorar los datos y llegue a conclusiones sobre las posibles líneas de investigación.
 
